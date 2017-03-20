@@ -44,8 +44,8 @@ while True:
     except:
         fileName = input("File to read: ")
 
-file = file.replace('class', 'def')
-decs = file.split('def')
+file = file.replace('\nclass ', '\ndef ')
+decs = file.split('\ndef ')
 
 with open('README.md','w') as readme:
     readme.write('{}\n======\n{}\n\nSyntax\n------\n'.format(fileName.split('.')[0],trim(decs[0].split('"""')[1])))
