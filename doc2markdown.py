@@ -54,7 +54,7 @@ for dec in decs[1:]:
     if '"""' in dec:
         stack = dec.split('"""')
         with open('README.md','a') as readme:
-            functionName = "###{}".format(stack[0].split('(')[0])
+            functionName = "### {}".format(stack[0].split('(')[0])
             functionSyntax = "`{}`: ".format(stack[0].replace(':',''))
             functionDocs = trim(stack[1])
             readme.write("{}\n{}\n{}\n\n".format(functionName,functionSyntax, functionDocs))
