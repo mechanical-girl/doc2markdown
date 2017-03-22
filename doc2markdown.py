@@ -44,17 +44,28 @@ while True:
     except:
         fileName = input("File to read: ")
 
-file = file.replace('\nclass ', '\ndef ')
-decs = file.split('\ndef ')
+lines = file.splitlines()
+file = ""
+for i, line in enumerate(lines):
+    if line.lstrip()[0:4] == "def " or line.lstrip()[0:6] == "class ":
+        indent = (len(line) - len(line.lstrip()))
+        line = line[indent:]
+    file += "{}\n".format(line)
+
+classes = file.split('\nclass ')
+decs = []
+for item in classes: decs += item.split('\ndef ')
 
 with open('README.md','w') as readme:
     readme.write('{}\n======\n{}\n\nSyntax\n------\n'.format(fileName.split('.')[0],trim(decs[0].split('"""')[1])))
 
-for dec in decs[1:]:
+for i, dec in enumerate(decs[1:]):
+    print(dec)
     if '"""' in dec:
         stack = dec.split('"""')
         with open('README.md','a') as readme:
+            #print(stack)
             functionName = "### {}".format(stack[0].split('(')[0])
-            functionSyntax = "`{}`: ".format(stack[0].replace(':',''))
+            functionSyntax = "`{}`: ".format(stack[0].split(':')[0])
             functionDocs = trim(stack[1])
             readme.write("{}\n{}\n{}\n\n".format(functionName,functionSyntax, functionDocs))
