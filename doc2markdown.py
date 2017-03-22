@@ -53,19 +53,26 @@ for i, line in enumerate(lines):
     file += "{}\n".format(line)
 
 classes = file.split('\nclass ')
+items = []
+for item in classes: items.append("*{}".format(item))
+print(classes)
 decs = []
-for item in classes: decs += item.split('\ndef ')
+for item in items: decs += item.split('\ndef ')
 
 with open('README.md','w') as readme:
-    readme.write('{}\n======\n{}\n\nSyntax\n------\n'.format(fileName.split('.')[0],trim(decs[0].split('"""')[1])))
+    readme.write('{}\n======\n{}\n\nSyntax\n======\n'.format(fileName.split('.')[0],trim(decs[0].split('"""')[1])))
 
 for i, dec in enumerate(decs[1:]):
-    print(dec)
     if '"""' in dec:
         stack = dec.split('"""')
         with open('README.md','a') as readme:
-            #print(stack)
-            functionName = "### {}".format(stack[0].split('(')[0])
-            functionSyntax = "`{}`: ".format(stack[0].split(':')[0])
-            functionDocs = trim(stack[1])
-            readme.write("{}\n{}\n{}\n\n".format(functionName,functionSyntax, functionDocs))
+            if stack[0][0] == "*":
+                stack[0] = stack[0][1:]
+                name = "{}\n------".format(stack[0].split('(')[0])
+                syntax = ''
+            else:
+                print(stack[0])
+                name = "### {}".format(stack[0].split('(')[0])
+                syntax = "`{}`: ".format(stack[0].split(':')[0])
+            docs = trim(stack[1])
+            readme.write("{}\n{}\n{}\n\n".format(name,syntax, docs))
