@@ -1,4 +1,4 @@
-import sys
+import sys, os
 
 """
 doc2markdown creates a GitHub-Markdown formatted README.md file in the local
@@ -33,17 +33,36 @@ def trim(docstring):
     # Return a single string:
     return '\n'.join(trimmed)
 
+filename = ''
+filepath = ''
 try: fileName = sys.argv[1]
 except: naUnd()
 
 while True:
     try:
-        with open(fileName, 'r') as f:
+        try:
+            filepath = fileName[::-1].split('/',1)[1][::-1]
+            filename = fileName[::-1].split('/',1)[0][::-1]
+            os.cwd('{}//'.format(filepath))
+        except: naUnd()
+        with open(filename, 'r') as f:
             file = f.read()
         break
     except:
         fileName = input("File to read: ")
+        print(fileName)
+        filepath = fileName[::-1].split('/',1)[1][::-1]
+        filename = fileName[::-1].split('/',1)[0][::-1]
+        print(filename)
+        print(filepath)
+        cd = os.getcwd()
+        print(cd)
+        os.chdir('{}//'.format(filepath))
+        print(os.listdir('.'))
+        with open(filename, 'r') as f:
+            file = f.read()
 
+os.chdir(cd)
 lines = file.splitlines()
 file = ""
 for i, line in enumerate(lines):
@@ -76,3 +95,4 @@ for i, dec in enumerate(decs[1:]):
                 syntax = "`{}`: ".format(stack[0].split(':')[0])
             docs = trim(stack[1])
             readme.write("{}\n{}\n{}\n\n".format(name,syntax, docs))
+
