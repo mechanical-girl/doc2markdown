@@ -50,19 +50,12 @@ while True:
         break
     except:
         fileName = input("File to read: ")
-        print(fileName)
         filepath = fileName[::-1].split('/',1)[1][::-1]
         filename = fileName[::-1].split('/',1)[0][::-1]
-        print(filename)
-        print(filepath)
-        cd = os.getcwd()
-        print(cd)
         os.chdir('{}//'.format(filepath))
-        print(os.listdir('.'))
         with open(filename, 'r') as f:
             file = f.read()
 
-os.chdir(cd)
 lines = file.splitlines()
 file = ""
 for i, line in enumerate(lines):
@@ -74,12 +67,11 @@ for i, line in enumerate(lines):
 classes = file.split('\nclass ')
 items = []
 for item in classes: items.append("*{}".format(item))
-print(classes)
 decs = []
 for item in items: decs += item.split('\ndef ')
 
 with open('README.md','w') as readme:
-    readme.write('{}\n======\n{}\n\nSyntax\n======\n'.format(fileName.split('.')[0],trim(decs[0].split('"""')[1])))
+    readme.write('{}\n======\n{}\n\nSyntax\n======\n'.format(filename.split('.')[0],trim(decs[0].split('"""')[1])))
 
 for i, dec in enumerate(decs[1:]):
     if '"""' in dec:
@@ -90,7 +82,6 @@ for i, dec in enumerate(decs[1:]):
                 name = "{}\n------".format(stack[0].split('(')[0])
                 syntax = ''
             else:
-                print(stack[0])
                 name = "### {}".format(stack[0].split('(')[0])
                 syntax = "`{}`: ".format(stack[0].split(':')[0])
             docs = trim(stack[1])
