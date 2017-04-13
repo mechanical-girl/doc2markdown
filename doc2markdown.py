@@ -70,6 +70,9 @@ for item in classes: items.append("*{}".format(item))
 decs = []
 for item in items: decs += item.split('\ndef ')
 
+for dec in decs:
+    if not '"""' in dec: decs.remove(dec)
+    
 with open('README.md','w') as readme:
     readme.write('{}\n======\n{}\n\nSyntax\n======\n'.format(filename.split('.')[0],trim(decs[0].split('"""')[1])))
 
@@ -86,4 +89,3 @@ for i, dec in enumerate(decs[1:]):
                 syntax = "`{}`: ".format(stack[0].split(':')[0])
             docs = trim(stack[1])
             readme.write("{}\n{}\n{}\n\n".format(name,syntax, docs))
-
