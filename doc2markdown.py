@@ -41,18 +41,22 @@ except: naUnd()
 while True:
     try:
         try:
-            filepath = fileName[::-1].split('/',1)[1][::-1]
-            filename = fileName[::-1].split('/',1)[0][::-1]
-            os.cwd('{}//'.format(filepath))
+            if '/' in fileName:
+                filepath = fileName[::-1].split('/',1)[1][::-1]
+                filename = fileName[::-1].split('/',1)[0][::-1]
+                os.chdir('{}//'.format(filepath))
+            else: filename = fileName
         except: naUnd()
         with open(filename, 'r') as f:
             file = f.read()
         break
     except:
         fileName = input("File to read: ")
-        filepath = fileName[::-1].split('/',1)[1][::-1]
-        filename = fileName[::-1].split('/',1)[0][::-1]
-        os.chdir('{}//'.format(filepath))
+        if '/' in fileName:
+            filepath = fileName[::-1].split('/',1)[1][::-1]
+            filename = fileName[::-1].split('/',1)[0][::-1]
+            os.chdir('{}//'.format(filepath))
+        else: filename = fileName
         with open(filename, 'r') as f:
             file = f.read()
 
@@ -72,7 +76,7 @@ for item in items: decs += item.split('\ndef ')
 
 for dec in decs:
     if not '"""' in dec: decs.remove(dec)
-    
+
 with open('README.md','w') as readme:
     readme.write('{}\n======\n{}\n\nSyntax\n======\n'.format(filename.split('.')[0],trim(decs[0].split('"""')[1])))
 
@@ -85,7 +89,7 @@ for i, dec in enumerate(decs[1:]):
                 name = "{}\n------".format(stack[0].split('(')[0])
                 syntax = ''
             else:
-                name = "### {}".format(stack[0].split('(')[0])
-                syntax = "`{}`: ".format(stack[0].split(':')[0])
+                name = "### {}".format(stack[0].split('(')[0].replace('_','\\_'))
+                syntax = "`{}`: ".format(stack[0].split(':')[0].replace('\n'),'\n\n')
             docs = trim(stack[1])
             readme.write("{}\n{}\n{}\n\n".format(name,syntax, docs))
