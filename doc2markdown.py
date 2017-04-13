@@ -90,6 +90,6 @@ for i, dec in enumerate(decs[1:]):
                 syntax = ''
             else:
                 name = "### {}".format(stack[0].split('(')[0].replace('_','\\_'))
-                syntax = "`{}`: ".format(stack[0].split(':')[0].replace('\n'),'\n\n')
+                syntax = "`{}`: ".format(stack[0].split(':')[0].replace('\n','\n\n'))
             docs = trim(stack[1])
             readme.write("{}\n{}\n{}\n\n".format(name,syntax, docs))
