@@ -6,4 +6,4 @@ setup(  name='doc2markdown',
         author='Pouncy Silverkitten',
         author_email='pouncy.sk@gmail.com',
         url='https://github.com/pouncysilverkitten/doc2markdown',
-        scripts= ['doc2markdown'],)
+        scripts= ['doc2markdown.py'],)
