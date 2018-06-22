@@ -7,4 +7,4 @@ setup(  name='doc2markdown',
         author_email='pouncy.sk@gmail.com',
         url='https://github.com/pouncysilverkitten/doc2markdown',
         entry_points = {
-            'console_scripts': ['doc2markdown=main'],})
+            'console_scripts': ['doc2markdown=doc2markdown.py'],})
