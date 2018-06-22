@@ -7,10 +7,6 @@ directory, containing neatly formatted docstrings of the input file.
 
 """
 
-
-def naUnd(): pass
-
-
 def trim(docstring):
     if not docstring:
         return ''
@@ -39,10 +35,8 @@ def trim(docstring):
 
 filename = ''
 filepath = ''
-try:
-    fileName = sys.argv[1]
-except:
-    naUnd()
+try: fileName = sys.argv[1]
+except: pass
 
 while True:
     try:
